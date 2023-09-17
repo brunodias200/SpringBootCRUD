@@ -55,14 +55,14 @@ public class ProductController {
 
 
     @DeleteMapping("/products/{id}")
-    public ResponseEntity<Object> deleteById(@PathVariable(value = "id") UUID id){
+    public ResponseEntity<Object> deleteProduct(@PathVariable(value = "id") UUID id){
         Optional<ProductModel> p1 = productRepository.findById(id);
         if(p1.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
         }
 
-        //p1.delete?
-        return ResponseEntity.status(HttpStatus.OK).body(p1.get());
+        productRepository.delete(p1.get());
+        return ResponseEntity.status(HttpStatus.OK).body("Product deleted successfully");
     }
 
 }
